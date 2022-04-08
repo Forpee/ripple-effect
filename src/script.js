@@ -29,9 +29,14 @@ const material = new THREE.ShaderMaterial({
     fragmentShader: testFragmentShader,
     side: THREE.DoubleSide
 })
+//add another mat
+const material1 = new THREE.MeshBasicMaterial({
+    transparent: true,
+    map: new THREE.TextureLoader().load('/brush.png')
+})
 
 // Mesh
-const mesh = new THREE.Mesh(geometry, material)
+const mesh = new THREE.Mesh(geometry, material1)
 scene.add(mesh)
 
 /**
