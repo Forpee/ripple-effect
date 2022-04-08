@@ -30,6 +30,11 @@ const geometry = new THREE.PlaneBufferGeometry(40, 40, 32, 32)
 
 // Material
 const material = new THREE.ShaderMaterial({
+    uniforms: {
+        uDisplacement: { value: null },
+        uTexture: { value: new THREE.TextureLoader().load('/ocean.jpg') },
+
+    },
     vertexShader: testVertexShader,
     fragmentShader: testFragmentShader,
     side: THREE.DoubleSide
