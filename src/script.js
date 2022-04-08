@@ -62,9 +62,18 @@ for (let i = 0; i < max; i++) {
     scene.add(mesh)
     meshes.push(mesh)
 }
+
+function setNewWave(x,y, index){
+    let mesh = meshes[index]
+    mesh.visible = true
+    mesh.position.x = x
+    mesh.position.y = y
+}
+
 function trackMousePos() {
     if (Math.abs(mouse.x - prevMouse.x) < 4 && Math.abs(mouse.y - prevMouse.y) < 4) {
     } else {
+        setNewWave(mouse.x, mouse.y, currentWave)
         currentWave = (currentWave + 1) % max
         // console.log(currentWave);
     }
@@ -133,8 +142,8 @@ const tick = () => {
     // Update controls
     controls.update()
     meshes.forEach(m => {
-        m.position.x = mouse.x
-        m.position.y = mouse.y
+        // m.position.x = mouse.x
+        // m.position.y = mouse.y
     })
     // Render
     renderer.render(scene, camera)
