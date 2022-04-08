@@ -20,7 +20,7 @@ const scene = new THREE.Scene()
  * Test mesh
  */
 // Geometry
-const geometry = new THREE.PlaneBufferGeometry(1, 1, 32, 32)
+const geometry = new THREE.PlaneBufferGeometry(100, 100, 32, 32)
 
 // Material
 const material = new THREE.ShaderMaterial({
@@ -83,7 +83,11 @@ window.addEventListener('resize', () =>
  * Camera
  */
 // Base camera
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+// const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+let frustumSize = sizes.height
+let aspect = sizes.width / sizes.height
+let camera = new THREE.OrthographicCamera(frustumSize * aspect / -2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / -2, -1000, 1000)
+
 camera.position.set(0.25, - 0.25, 1)
 scene.add(camera)
 
