@@ -21,7 +21,7 @@ const scene = new THREE.Scene()
  */
 // Geometry
 
-let mouse = new THREE.Vector2(0,0)
+let mouse = new THREE.Vector2(0, 0)
 const geometry = new THREE.PlaneBufferGeometry(100, 100, 32, 32)
 
 // Material
@@ -32,8 +32,8 @@ const material = new THREE.ShaderMaterial({
 })
 
 window.addEventListener('mousemove', (e) => {
-    mouse.x = (e.clientX / window.innerWidth) * 2 - 1
-    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
+    mouse.x = (e.clientX) - sizes.width / 2
+    mouse.y = sizes.height/2 -(e.clientY)
 })
 
 // //add another mat
@@ -42,7 +42,7 @@ window.addEventListener('mousemove', (e) => {
 //     map: new THREE.TextureLoader().load('/brush.png')
 // })
 
-let max =2;
+let max = 1;
 let meshes = []
 for (let i = 0; i < max; i++) {
     let m = new THREE.MeshBasicMaterial({
@@ -54,10 +54,10 @@ for (let i = 0; i < max; i++) {
 
     })
     let mesh = new THREE.Mesh(geometry, m)
-    mesh.rotation.z = 2*Math.PI*Math.random()
+    mesh.visible = false
+    mesh.rotation.z = 2 * Math.PI * Math.random()
     scene.add(mesh)
     meshes.push(mesh)
-
 }
 
 // Mesh
@@ -72,8 +72,7 @@ const sizes = {
     height: window.innerHeight
 }
 
-window.addEventListener('resize', () =>
-{
+window.addEventListener('resize', () => {
     // Update sizes
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
@@ -116,11 +115,13 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 /**
  * Animate
  */
-const tick = () =>
-{
+const tick = () => {
     // Update controls
     controls.update()
-
+    meshes.forEach(m => {
+        m.position.x = mouse.x
+        m.position.y = mouse.y
+    })
     // Render
     renderer.render(scene, camera)
 
