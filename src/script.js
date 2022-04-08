@@ -20,6 +20,8 @@ const scene = new THREE.Scene()
  * Test mesh
  */
 // Geometry
+
+let mouse = new THREE.Vector2(0,0)
 const geometry = new THREE.PlaneBufferGeometry(100, 100, 32, 32)
 
 // Material
@@ -28,11 +30,17 @@ const material = new THREE.ShaderMaterial({
     fragmentShader: testFragmentShader,
     side: THREE.DoubleSide
 })
-//add another mat
-const material1 = new THREE.MeshBasicMaterial({
-    transparent: true,
-    map: new THREE.TextureLoader().load('/brush.png')
+
+window.addEventListener('mousemove', (e) => {
+    mouse.x = (e.clientX / window.innerWidth) * 2 - 1
+    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
 })
+
+// //add another mat
+// const material1 = new THREE.MeshBasicMaterial({
+//     transparent: true,
+//     map: new THREE.TextureLoader().load('/brush.png')
+// })
 
 let max =2;
 let meshes = []
