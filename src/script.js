@@ -10,7 +10,6 @@ import testFragmentShader from './shaders/test/fragment.glsl'
  */
 // Debug
 const gui = new dat.GUI()
-
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
@@ -34,6 +33,20 @@ const material1 = new THREE.MeshBasicMaterial({
     transparent: true,
     map: new THREE.TextureLoader().load('/brush.png')
 })
+
+let max =50;
+let meshes = []
+for (let i = 0; i < max; i++) {
+    let m = new THREE.MeshBasicMaterial({
+        transparent: true,
+        map: new THREE.TextureLoader().load('/brush.png')
+    })
+    let mesh = new THREE.Mesh(geometry, m)
+    mesh.rotation.z = 2*Math.PI*Math.random()
+    scene.add(mesh)
+    meshes.push(mesh)
+
+}
 
 // Mesh
 const mesh = new THREE.Mesh(geometry, material1)
