@@ -59,6 +59,9 @@ for (let i = 0; i < max; i++) {
     scene.add(mesh)
     meshes.push(mesh)
 }
+function trackMousePos() {
+
+}
 
 // Mesh
 // const mesh = new THREE.Mesh(geometry, material1)
@@ -116,6 +119,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
  * Animate
  */
 const tick = () => {
+
+    trackMousePos()
     // Update controls
     controls.update()
     meshes.forEach(m => {
