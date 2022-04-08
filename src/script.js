@@ -15,6 +15,7 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
+const scene1 = new THREE.Scene()
 
 /**
  * Test mesh
@@ -25,7 +26,7 @@ let mouse = new THREE.Vector2(0, 0)
 let prevMouse = new THREE.Vector2(0, 0)
 let currentWave = 0;
 
-const geometry = new THREE.PlaneBufferGeometry(30, 30, 32, 32)
+const geometry = new THREE.PlaneBufferGeometry(40, 40, 32, 32)
 
 // Material
 const material = new THREE.ShaderMaterial({
@@ -63,12 +64,13 @@ for (let i = 0; i < max; i++) {
     meshes.push(mesh)
 }
 
-function setNewWave(x,y, index){
+function setNewWave(x, y, index) {
     let mesh = meshes[index]
     mesh.visible = true
     mesh.position.x = x
     mesh.position.y = y
     mesh.material.opacity = 1
+    mesh.scale.x = mesh.scale.y = 1
 }
 
 function trackMousePos() {
@@ -108,6 +110,14 @@ window.addEventListener('resize', () => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
+
+let baseTexture = new THREE.WebGLRenderTarget(sizes.width, sizes.height, {
+    minFilter: THREE.LinearFilter,
+    magFilter: THREE.LinearFilter,
+    format: THREE.RGBAFormat
+}
+)
+
 /**
  * Camera
  */
@@ -143,12 +153,19 @@ const tick = () => {
     // Update controls
     controls.update()
     meshes.forEach(m => {
-        // m.position.x = mouse.x
-        // m.position.y = mouse.y
-        m.rotation.z += 0.02
-        m.material.opacity *= 0.98
-        m.scale.x = 0.98*m.scale.x+0.1
-        m.scale.y = m.scale.x
+        if (m.visible) {
+            // m.position.x = mouse.x
+            // m.position.y = mouse.y
+            m.rotation.z += 0.02
+            m.material.opacity *= 0.96
+            m.scale.x = 0.98 * m.scale.x + 0.1
+            m.scale.y = m.scale.x
+            if (m.material.opacity < 0.02) {
+                m.visible = false
+            }
+
+
+        }
     })
     // Render
     renderer.render(scene, camera)
