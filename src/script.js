@@ -25,7 +25,7 @@ let mouse = new THREE.Vector2(0, 0)
 let prevMouse = new THREE.Vector2(0, 0)
 let currentWave = 0;
 
-const geometry = new THREE.PlaneBufferGeometry(100, 100, 32, 32)
+const geometry = new THREE.PlaneBufferGeometry(30, 30, 32, 32)
 
 // Material
 const material = new THREE.ShaderMaterial({
@@ -68,6 +68,7 @@ function setNewWave(x,y, index){
     mesh.visible = true
     mesh.position.x = x
     mesh.position.y = y
+    mesh.material.opacity = 1
 }
 
 function trackMousePos() {
@@ -144,6 +145,10 @@ const tick = () => {
     meshes.forEach(m => {
         // m.position.x = mouse.x
         // m.position.y = mouse.y
+        m.rotation.z += 0.02
+        m.material.opacity *= 0.98
+        m.scale.x = 0.98*m.scale.x+0.1
+        m.scale.y = m.scale.x
     })
     // Render
     renderer.render(scene, camera)
