@@ -22,6 +22,9 @@ const scene = new THREE.Scene()
 // Geometry
 
 let mouse = new THREE.Vector2(0, 0)
+let prevMouse = new THREE.Vector2(0, 0)
+let currentWave = 0;
+
 const geometry = new THREE.PlaneBufferGeometry(100, 100, 32, 32)
 
 // Material
@@ -33,7 +36,7 @@ const material = new THREE.ShaderMaterial({
 
 window.addEventListener('mousemove', (e) => {
     mouse.x = (e.clientX) - sizes.width / 2
-    mouse.y = sizes.height/2 -(e.clientY)
+    mouse.y = sizes.height / 2 - (e.clientY)
 })
 
 // //add another mat
@@ -42,7 +45,7 @@ window.addEventListener('mousemove', (e) => {
 //     map: new THREE.TextureLoader().load('/brush.png')
 // })
 
-let max = 1;
+let max = 50;
 let meshes = []
 for (let i = 0; i < max; i++) {
     let m = new THREE.MeshBasicMaterial({
@@ -60,7 +63,13 @@ for (let i = 0; i < max; i++) {
     meshes.push(mesh)
 }
 function trackMousePos() {
-
+    if (Math.abs(mouse.x - prevMouse.x) < 4 && Math.abs(mouse.y - prevMouse.y) < 4) {
+    } else {
+        currentWave = (currentWave + 1) % max
+        // console.log(currentWave);
+    }
+    prevMouse.x = mouse.x
+    prevMouse.y = mouse.y
 }
 
 // Mesh
