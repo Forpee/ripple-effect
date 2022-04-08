@@ -173,7 +173,7 @@ const tick = () => {
         }
     })
     // Render
-    renderer.render(scene, camera)
+    renderer.render(scene1, camera)
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
