@@ -5,6 +5,14 @@ import * as dat from 'dat.gui'
 import testVertexShader from './shaders/test/vertex.glsl'
 import testFragmentShader from './shaders/test/fragment.glsl'
 
+
+/**
+ * Sizes
+ */
+ const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight
+}
 /**
  * Base
  */
@@ -27,6 +35,7 @@ let prevMouse = new THREE.Vector2(0, 0)
 let currentWave = 0;
 
 const geometry = new THREE.PlaneBufferGeometry(40, 40, 32, 32)
+const geometryFull = new THREE.PlaneBufferGeometry(sizes.width, sizes.height, 32, 32)
 
 // Material
 const material = new THREE.ShaderMaterial({
@@ -89,17 +98,10 @@ function trackMousePos() {
     prevMouse.y = mouse.y
 }
 
-// Mesh
-// const mesh = new THREE.Mesh(geometry, material1)
-// scene.add(mesh)
+const meshFull = new THREE.Mesh(geometryFull, material)
+scene1.add(meshFull)
 
-/**
- * Sizes
- */
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-}
+
 
 window.addEventListener('resize', () => {
     // Update sizes
@@ -132,7 +134,7 @@ let frustumSize = sizes.height
 let aspect = sizes.width / sizes.height
 let camera = new THREE.OrthographicCamera(frustumSize * aspect / -2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / -2, -1000, 1000)
 
-camera.position.set(0.25, - 0.25, 1)
+camera.position.set(0.0, - 0.0, 1)
 scene.add(camera)
 
 // Controls
