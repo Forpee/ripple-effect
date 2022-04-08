@@ -34,12 +34,16 @@ const material1 = new THREE.MeshBasicMaterial({
     map: new THREE.TextureLoader().load('/brush.png')
 })
 
-let max =50;
+let max =2;
 let meshes = []
 for (let i = 0; i < max; i++) {
     let m = new THREE.MeshBasicMaterial({
         transparent: true,
-        map: new THREE.TextureLoader().load('/brush.png')
+        map: new THREE.TextureLoader().load('/brush.png'),
+        blending: THREE.AdditiveBlending,
+        depthTest: false,
+        depthWrite: false
+
     })
     let mesh = new THREE.Mesh(geometry, m)
     mesh.rotation.z = 2*Math.PI*Math.random()
@@ -49,8 +53,8 @@ for (let i = 0; i < max; i++) {
 }
 
 // Mesh
-const mesh = new THREE.Mesh(geometry, material1)
-scene.add(mesh)
+// const mesh = new THREE.Mesh(geometry, material1)
+// scene.add(mesh)
 
 /**
  * Sizes
