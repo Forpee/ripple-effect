@@ -175,6 +175,11 @@ const tick = () => {
         }
     })
     // Render
+    renderer.setRenderTarget(baseTexture)
+    renderer.render(scene, camera)
+    material.uniforms.uDisplacement.value = baseTexture.texture
+    renderer.setRenderTarget(null)
+    renderer.clear()
     renderer.render(scene1, camera)
 
     // Call tick again on the next frame
